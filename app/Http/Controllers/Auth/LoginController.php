@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Validation\ValidationException;
+
 
 class LoginController extends Controller
 {
@@ -62,4 +64,14 @@ class LoginController extends Controller
     {
         return $request->only('username', 'password');
     }
+
+    protected function authenticated(Request $request, $user)
+{
+    if (!$user->active) {
+        auth()->logout();
+        throw ValidationException::withMessages([
+            'email' => ['Your account is not active.'],
+        ]);
+    }
+}
 }
