@@ -8,7 +8,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('dashboard.users');
+        $title="users";
+        return view('dashboard.users',compact('title'));
     }
 
 }

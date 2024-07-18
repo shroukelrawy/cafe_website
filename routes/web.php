@@ -20,7 +20,7 @@ Route::post('register', [RegisterController::class, 'register']);
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/dashboard.users', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
 // Route for admin panel, requiring authentication
 Route::middleware('auth')->group(function () {

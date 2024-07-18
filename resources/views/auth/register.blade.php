@@ -43,6 +43,9 @@
                         </span>
                         @enderror
                     </div>
+                    <div>
+                        <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                    </div>
                    
                     <div>
                         <button type="submit" class="btn btn-default submit">Submit</button>
