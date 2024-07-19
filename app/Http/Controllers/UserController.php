@@ -20,6 +20,33 @@ class UserController extends Controller
         $title="users";
         return view('dashboard.users',compact('title','users'));
     }
+    public function create()
+    {
+        $title="Add user";
+        return view('dashboard.adduser',compact('title'));
+    }
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'active' => 'boolean',
+        ]);
+
+      
+        $user = new User();
+        $user->fullname = $request->input('fullname');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->active = $request->has('active');
+
+        $user->save();
+
+        return redirect()->route('dashboard.users')->with('success', 'User added successfully!');
+    }
 
     public function edit($id)
     {

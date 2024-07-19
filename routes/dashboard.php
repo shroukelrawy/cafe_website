@@ -16,5 +16,7 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('dashboard.edituser');
         Route::put('users/{id}', [UserController::class, 'update'])->name('dashboard.updateuser');
-   
+        Route::get('/users/create', [UserController::class, 'create'])->name('dashboard.adduser');
+        Route::post('/users', [UserController::class, 'store'])->name('dashboard.storeuser');
+
     });
