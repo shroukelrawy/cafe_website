@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // Authentication routes
@@ -20,13 +20,17 @@ Route::post('register', [RegisterController::class, 'register']);
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/dashboard.users', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
+// Route::get('/dashboard.users', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
 // Route for admin panel, requiring authentication
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified', 'active')->group(function () {
     Route::get('admin', function () {
         return redirect()->route('login');
     })->name('admin');
 });
+
+Route::get('/inactive', function () {
+    return view('auth.login')->with('error', 'Your Account Not Active.');
+})->name('inactive');
 
 require base_path('routes/dashboard.php');

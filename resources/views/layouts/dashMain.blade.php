@@ -23,7 +23,7 @@
 
             <!-- sidebar menu -->
             @include('dashIncludes.sidebarmenu')
-			<!-- /sidebar menu -->
+			      <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
             @include('dashIncludes.menufooter')
@@ -35,8 +35,10 @@
         @include('dashIncludes.topnavigation')
         <!-- /top navigation -->
 
-        @yield('content')
-        
+         <!-- page content -->
+         @yield('content')
+        <!-- /page content -->
+
         <!-- footer content -->
         @include('dashIncludes.footercontent')
         <!-- /footer content -->

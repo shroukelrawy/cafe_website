@@ -10,14 +10,14 @@
 								</li>
 								<li><a><i class="fa fa-edit"></i> Categories <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="addCategory.html">Add Category</a></li>
-										<li><a href="categories.html">Categories List</a></li>
+										<li><a href="{{route('dashboard.addcategory')}}">Add Category</a></li>
+										<li><a href="{{route('dashboard.categories')}}">Categories List</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-desktop"></i> Beverages <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="addBeverage.html">Add Beverage</a></li>
-										<li><a href="beverages.html">Beverages List</a></li>
+										<li><a href="{{route('dashboard.addbeverage')}}">Add Beverage</a></li>
+										<li><a href="{{route('dashboard.beverages')}}">Beverages List</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-desktop"></i> Messages <span class="fa fa-chevron-down"></span></a>

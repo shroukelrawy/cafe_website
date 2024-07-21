@@ -8,9 +8,15 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
+            @if(session('error'))
+        <div style="color: red;">
+            {{ session('error') }}
+        </div>
+    @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <h1>Login Form</h1>
+                    
                     <div>
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="Username">
                         @error('username')
