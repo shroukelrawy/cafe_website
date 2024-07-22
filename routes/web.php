@@ -1,36 +1,32 @@
 <?php
-
+use App\Http\Middleware\CheckActive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
-
-Route::get('/', function () {
-    return view('index');
-});
-
 // Authentication routes
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Registration routes
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
 
 Auth::routes(['verify'=>true]);
 
-// Route::get('/dashboard.users', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
 // Route for admin panel, requiring authentication
-Route::middleware('auth', 'verified', 'active')->group(function () {
-    Route::get('admin', function () {
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/admin', function () {
         return redirect()->route('login');
     })->name('admin');
 });
 
-Route::get('/inactive', function () {
-    return view('auth.login')->with('error', 'Your Account Not Active.');
-})->name('inactive');
+// Route::get('/inactive', function () {
+//     return view('auth.login')->with('error', 'Your Account Not Active.');
+// })->name('inactive');
 
 require base_path('routes/dashboard.php');
+

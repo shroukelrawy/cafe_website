@@ -31,6 +31,11 @@ class LoginController extends Controller
     protected $redirectTo = '/dashboard/users';
     protected $redirectAfterLogout = '/login';
 
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
     /**
      * Create a new controller instance.
      *

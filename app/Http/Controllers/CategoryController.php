@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $title="List Of Categories";
+        $title="Add Category";
         return view('dashboard.addcategory', compact('title'));
     }
 

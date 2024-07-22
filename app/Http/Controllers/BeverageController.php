@@ -44,20 +44,25 @@ class BeverageController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'price' => 'required|numeric',
-            'published' => 'nullable|boolean',
-            'special' => 'nullable|boolean',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'published' => 'sometimes',
+            'special' => 'sometimes',
+            'image' => 'required|image',
             'category_id' => 'required|exists:categories,id',
         ]);
-        $imagePath = $request->file('image')->store('images', 'public');
+        // $imagePath = $request->file('image')->store('images', 'public');
+
+        $imgExt = $request->file('image')->getClientOriginalExtension();
+        $fileName = time() . '.' . $imgExt;
+        $imagePath = 'images/' . $fileName;
+        $request->file('image')->move(public_path('images'), $fileName);
 
         Beverage::create([
             'title' => $request->title,
             'content' => $request->content,
             'price' => $request->price,
-            'published' => $request->has('published'),
-            'special' => $request->has('special'),
+            'published' => $request->has('published') ? 1 : 0,
+            'special' => $request->has('special') ? 1 : 0,
             'image' => $imagePath,
             'category_id' => $request->category_id,
         ]);
@@ -76,56 +81,68 @@ class BeverageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Beverage $beverage)
-    {
-        $title="Add Beverage";
-        $categories = Category::all();
-        return view('dashboard.editbeverage', compact('beverage', 'categories'));
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Beverage $beverage)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'price' => 'required|numeric',
-            'published' => 'nullable|boolean',
-            'special' => 'nullable|boolean',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
-        if ($request->hasFile('image')) {
-            Storage::delete('public/' . $beverage->image);
-            $imagePath = $request->file('image')->store('images', 'public');
-        } else {
-            $imagePath = $beverage->image;
-        }
-
-        $beverage->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'price' => $request->price,
-            'published' => $request->has('published'),
-            'special' => $request->has('special'),
-            'image' => $imagePath,
-            'category_id' => $request->category_id,
-        ]);
-
-        return redirect()->route('dashboard.beverages')->with('success', 'Beverage updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Beverage $beverage)
-    {
-        Storage::delete('public/' . $beverage->image);
-        $beverage->delete();
-
-        return redirect()->route('dashboard.beverages')->with('success', 'Beverage deleted successfully.');
-    }
-}
+     public function edit(Beverage $beverage)
+     {
+         $title = "Edit Beverage";
+         $categories = Category::all();
+         return view('dashboard.editbeverage', compact('beverage', 'categories', 'title'));
+     }
+ 
+     /**
+      * Update the specified resource in storage.
+      */
+     public function update(Request $request, Beverage $beverage)
+     {
+         $request->validate([
+             'title' => 'required|string|max:255',
+             'content' => 'required|string',
+             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+             'published' => 'sometimes',
+             'special' => 'sometimes',
+             'image' => 'nullable|image',
+             'category_id' => 'required|exists:categories,id',
+         ]);
+ 
+         if ($request->hasFile('image')) {
+             // Delete the old image if a new one is uploaded
+             if ($beverage->image) {
+                 Storage::delete($beverage->image);
+             }
+ 
+             $imgExt = $request->file('image')->getClientOriginalExtension();
+             $fileName = time() . '.' . $imgExt;
+             $imagePath = 'images/' . $fileName;
+             $request->file('image')->move(public_path('images'), $fileName);
+         } else {
+             $imagePath = $beverage->image;
+         }
+ 
+         $beverage->update([
+             'title' => $request->title,
+             'content' => $request->content,
+             'price' => $request->price,
+             'published' => $request->has('published') ? 1 : 0,
+             'special' => $request->has('special') ? 1 : 0,
+             'image' => $imagePath,
+             'category_id' => $request->category_id,
+         ]);
+ 
+         return redirect()->route('dashboard.beverages')->with('success', 'Beverage updated successfully.');
+     }
+ 
+     /**
+      * Remove the specified resource from storage.
+      */
+     public function destroy(Beverage $beverage)
+     {
+         if ($beverage->image) {
+             Storage::delete($beverage->image);
+         }
+ 
+         $beverage->delete();
+ 
+         return redirect()->route('dashboard.beverages')->with('success', 'Beverage deleted successfully.');
+     }
+ }
+  

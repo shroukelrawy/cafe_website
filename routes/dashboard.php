@@ -6,11 +6,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BeverageController;
 
 
-
+Route::get('/index', function () {
+    return view('index');
+});
 
    
 
-Route::prefix('dashboard')->group(function () {
+Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
         // User routes
         Route::get('/users', [UserController::class, 'index'])->name('dashboard.users');
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('dashboard.edituser');

@@ -22,7 +22,7 @@ class CheckActive
             
             $request->session()->flash('error', 'Your Account Not Active.');
 
-            return redirect()->route('login');
+            return redirect()->route('inactive');
         }
 
         return $next($request);

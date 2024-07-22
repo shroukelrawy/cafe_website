@@ -22,7 +22,7 @@
             </div>
 
             <div class="clearfix"></div>
-
+           
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
@@ -71,12 +71,12 @@
                                                     <td>{{ $beverage->title }}</td>
                                                     <td>{{ $beverage->published ? 'Yes' : 'No' }}</td>
                                                     <td>
-                                                        <a href="{{ route('beverages.edit', $beverage->id) }}">
+                                                        <a href="{{ route('dashboard.editbeverage', $beverage->id) }}">
                                                             <img src="{{ asset('dashAssets/images/edit.png') }}" alt="Edit">
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <form action="{{ route('beverages.destroy', $beverage->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this beverage?');">
+                                                        <form action="{{ route('dashboard.deletebeverage', $beverage->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this beverage?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" style="border:none; background:none;">
