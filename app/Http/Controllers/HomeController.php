@@ -22,11 +22,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    // public function index()
-    // {
-    //     $categories = Category::with('products')->latest()->take(3)->get();
-    //     return view('index', compact('categories'));
-    // }
+   
     public function drinkmenu()
     {
         $categories = Category::with('beverages')->latest()->take(3)->get();

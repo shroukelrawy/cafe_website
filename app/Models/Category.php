@@ -14,6 +14,5 @@ class Category extends Model
     public function beverages()
     {
         return $this->hasMany(Beverage::class)->where('published', true);
-
     }
 }

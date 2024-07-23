@@ -10,9 +10,6 @@ use App\Http\Controllers\SpecialItemsController;
 use App\Http\Controllers\ContactController;
 
 
-// Route::get('/index', function () {
-//     return view('index');
-// })->name('index');
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/specialitems', [SpecialItemsController::class, 'specialitems'])->name('specialitems');
@@ -40,9 +37,7 @@ Route::middleware([CheckActiveUser::class],'auth', 'verified')->group(function (
     })->name('admin');
 });
 
-// Route::get('/inactive', function () {
-//     return view('auth.login')->with('error', 'Your Account Not Active.');
-// })->name('inactive');
+
 
 require base_path('routes/dashboard.php');
 

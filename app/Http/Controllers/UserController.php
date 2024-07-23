@@ -14,22 +14,24 @@ class UserController extends Controller
             'password',
             'active',];
 
+
     public function index()
     {
         $users = User::all();
         $title="List of Users";
         return view('dashboard.users',compact('title','users'));
     }
+
+
     public function create()
     {
         $title="Add User";
         return view('dashboard.adduser',compact('title'));
     }
+
+
     public function store(Request $request)
     {
-        
-       
-
         try {
             $validatedData = $request->validate([
                 'fullname' => 'required',
@@ -38,7 +40,6 @@ class UserController extends Controller
                 'password' => 'required',
                 'active' => 'sometimes',
             ]);
-    
             User::create([
                 'fullname' => $request->fullname,
                 'username' => $request->username,
@@ -53,6 +54,7 @@ class UserController extends Controller
         }
     }
 
+
     public function edit($id)
     {
         $user = User::find($id); 
@@ -60,25 +62,18 @@ class UserController extends Controller
         return view('dashboard.edituser', compact('title','user'));
     }
 
+    
     public function update(Request $request, $id)
     {
-        $user = User::find($id); 
-
-     
         $user = User::findOrFail($id);
-    
         $user->fullname = $request->input('fullname');
         $user->username = $request->input('username');
         $user->email = $request->input('email');
-    
         if ($request->filled('password')) {
             $user->password = bcrypt($request->input('password'));
         }
-    
         $user['active'] = $request->has('active') ? 1 : 0;
-    
         $user->update();
-    
         return redirect('dashboard/users')->with('success', 'User updated successfully!');
     }
 

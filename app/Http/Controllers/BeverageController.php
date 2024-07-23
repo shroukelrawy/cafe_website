@@ -50,7 +50,6 @@ class BeverageController extends Controller
             'image' => 'required|image',
             'category_id' => 'required|exists:categories,id',
         ]);
-        // $imagePath = $request->file('image')->store('images', 'public');
 
         $imgExt = $request->file('image')->getClientOriginalExtension();
         $fileName = time() . '.' . $imgExt;

@@ -34,9 +34,8 @@ Route::middleware([CheckActiveUser::class],'auth', 'verified')->prefix('dashboar
         Route::put('beverages/{beverage}', [BeverageController::class, 'update'])->name('dashboard.updatebeverage');
         Route::delete('beverages/{beverage}', [BeverageController::class, 'destroy'])->name('dashboard.deletebeverage');
 
-        Route::get('/messages', [ContactController::class, 'index'])->name('dashboard.messages');
-    
         // Route to show a specific message
+        Route::get('/messages', [ContactController::class, 'index'])->name('dashboard.messages');
         Route::get('/messages/{id}', [ContactController::class, 'show'])->name('messages.show');
         Route::delete('/messages/{id}', [ContactController::class, 'destroy'])->name('messages.destroy');
         Route::get('/dashboard/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
