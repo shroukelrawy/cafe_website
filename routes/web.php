@@ -3,6 +3,22 @@ use App\Http\Middleware\CheckActive;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\SpecialItemsController;
+use App\Http\Controllers\ContactController;
+
+
+// Route::get('/index', function () {
+//     return view('index');
+// })->name('index');
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/specialitems', [SpecialItemsController::class, 'specialitems'])->name('specialitems');
+Route::get('/index', [HomeController::class, 'drinkmenu'])->name('index');
+Route::get('/about', [AboutController::class, 'about'])->name('about');
+
 
 // Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

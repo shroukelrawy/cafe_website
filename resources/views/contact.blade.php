@@ -1,3 +1,7 @@
+@extends('layouts.main')
+
+@section('content')
+
 <div id="contact" class="tm-page-content">
             <div class="tm-black-bg tm-contact-text-container">
               <h2 class="tm-text-primary">Contact Wave</h2>
@@ -24,3 +28,4 @@
               </form>
             </div>
           </div>
+@endsection

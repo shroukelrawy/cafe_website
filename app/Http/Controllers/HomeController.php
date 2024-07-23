@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -21,8 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    // public function index()
+    // {
+    //     $categories = Category::with('products')->latest()->take(3)->get();
+    //     return view('index', compact('categories'));
+    // }
+    public function drinkmenu()
     {
-        return view('home');
+        $categories = Category::with('beverages')->latest()->take(3)->get();
+        return view('index', compact('categories'));
     }
 }

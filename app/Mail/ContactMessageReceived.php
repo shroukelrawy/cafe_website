@@ -13,12 +13,22 @@ class ContactMessageReceived extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
+
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
+
+    }
+    public function build()
+    {
+        return $this->subject('Contact Message Received')
+                    ->view('emails.contact_message_received')
+                    ->with('data', $this->data);
     }
 
     /**
@@ -37,7 +47,7 @@ class ContactMessageReceived extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.contact_message_received',
         );
     }
 

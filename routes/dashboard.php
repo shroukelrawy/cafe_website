@@ -4,11 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BeverageController;
+use App\Http\Controllers\ContactController;
 
 
-Route::get('/index', function () {
-    return view('index');
-});
 
    
 
@@ -35,5 +33,13 @@ Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
         Route::get('beverages/{beverage}/edit', [BeverageController::class, 'edit'])->name('dashboard.editbeverage');
         Route::put('beverages/{beverage}', [BeverageController::class, 'update'])->name('dashboard.updatebeverage');
         Route::delete('beverages/{beverage}', [BeverageController::class, 'destroy'])->name('dashboard.deletebeverage');
+
+        Route::get('/messages', [ContactController::class, 'index'])->name('dashboard.messages');
+    
+        // Route to show a specific message
+        Route::get('/messages/{id}', [ContactController::class, 'show'])->name('messages.show');
+        Route::delete('/messages/{id}', [ContactController::class, 'destroy'])->name('messages.destroy');
+        Route::get('/dashboard/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
+
 
     });
