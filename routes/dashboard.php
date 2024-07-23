@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\CheckActiveUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
@@ -10,7 +10,7 @@ use App\Http\Controllers\ContactController;
 
    
 
-Route::middleware('auth', 'verified')->prefix('dashboard')->group(function () {
+Route::middleware([CheckActiveUser::class],'auth', 'verified')->prefix('dashboard')->group(function () {
         // User routes
         Route::get('/users', [UserController::class, 'index'])->name('dashboard.users');
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('dashboard.edituser');

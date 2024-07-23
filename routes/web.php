@@ -1,5 +1,5 @@
 <?php
-use App\Http\Middleware\CheckActive;
+use App\Http\Middleware\CheckActiveUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -34,7 +34,7 @@ Auth::routes(['verify'=>true]);
 
 
 // Route for admin panel, requiring authentication
-Route::middleware('auth', 'verified')->group(function () {
+Route::middleware([CheckActiveUser::class],'auth', 'verified')->group(function () {
     Route::get('/admin', function () {
         return redirect()->route('login');
     })->name('admin');
