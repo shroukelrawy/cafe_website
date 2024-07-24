@@ -31,9 +31,9 @@ Auth::routes(['verify'=>true]);
 
 
 // Route for admin panel, requiring authentication
-Route::middleware([CheckActiveUser::class],'auth', 'verified')->group(function () {
+Route::middleware(['auth', 'verified', CheckActiveUser::class])->group(function () {
     Route::get('/admin', function () {
-        return redirect()->route('login');
+        return view('dashboard.users');
     })->name('admin');
 });
 

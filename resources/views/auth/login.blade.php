@@ -12,7 +12,7 @@
         <div style="color: red;">
             {{ session('error') }}
         </div>
-    @endif
+            @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <h1>Login Form</h1>
