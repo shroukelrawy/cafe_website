@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified', CheckActiveUser::class])->prefix('dashboa
         Route::get('/messages', [ContactController::class, 'index'])->name('dashboard.messages');
         Route::get('/messages/{id}', [ContactController::class, 'show'])->name('messages.show');
         Route::delete('/messages/{id}', [ContactController::class, 'destroy'])->name('messages.destroy');
-        Route::get('/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
+        Route::get('dashboard/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
 
 
     });
