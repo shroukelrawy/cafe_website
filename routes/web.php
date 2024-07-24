@@ -3,6 +3,7 @@ use App\Http\Middleware\CheckActiveUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
@@ -33,7 +34,7 @@ Auth::routes(['verify'=>true]);
 // Route for admin panel, requiring authentication
 Route::middleware(['auth', 'verified', CheckActiveUser::class])->group(function () {
     Route::get('/admin', function () {
-        return view('dashboard.users');
+        return redirect()->route('dashboard.users');
     })->name('admin');
 });
 

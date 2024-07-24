@@ -15,20 +15,18 @@ class UserController extends Controller
             'active',];
 
 
-    public function index()
-    {
-        $users = User::all();
-        $title="List of Users";
-        return view('dashboard.users',compact('title','users'));
-    }
-
-
-    public function create()
-    {
-        $title="Add User";
-        return view('dashboard.adduser',compact('title'));
-    }
-
+            public function index()
+            {
+                $users = User::all();
+                $title = "List of Users";
+                return view('dashboard.users', compact('title', 'users'));
+            }
+        
+            public function create()
+            {
+                $title = "Add User";
+                return view('dashboard.adduser', compact('title'));
+            }
 
     public function store(Request $request)
     {

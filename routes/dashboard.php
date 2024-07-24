@@ -10,7 +10,7 @@ use App\Http\Controllers\ContactController;
 
    
 
-Route::middleware([CheckActiveUser::class],'auth', 'verified')->prefix('dashboard')->group(function () {
+Route::middleware(['auth', 'verified', CheckActiveUser::class])->prefix('dashboard')->group(function () {
         // User routes
         Route::get('/users', [UserController::class, 'index'])->name('dashboard.users');
         Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('dashboard.edituser');
@@ -38,7 +38,7 @@ Route::middleware([CheckActiveUser::class],'auth', 'verified')->prefix('dashboar
         Route::get('/messages', [ContactController::class, 'index'])->name('dashboard.messages');
         Route::get('/messages/{id}', [ContactController::class, 'show'])->name('messages.show');
         Route::delete('/messages/{id}', [ContactController::class, 'destroy'])->name('messages.destroy');
-        Route::get('/dashboard/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
+        Route::get('/messages/{id}', [ContactController::class, 'show'])->name('dashboard.showmessage');
 
 
     });

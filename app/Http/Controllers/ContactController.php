@@ -57,11 +57,15 @@ class ContactController extends Controller
     {
         $title = 'List of Messages';
         $message = ContactMessage::findOrFail($id);
-        $message->is_read = true;
-        $message->save();
+        if (!$message->is_read) {
+            $message->is_read = true;
+            $message->save();
+        }
         return view('dashboard.showmessage', ['title' => $title,'data' => $message]);
     }
    
+        
+       
     /**
      * Delete a contact message.
      */
